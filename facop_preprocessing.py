@@ -1,11 +1,7 @@
-# This is a sample Python script.
-
-# Press ⇧F10 to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
 from Bio import SeqIO
-import sys
 import os
+import argparse
+
 
 def find_closest_non_gene(gff_data, record_id, split_position):
     for feature in gff_data:
@@ -26,13 +22,12 @@ def find_closest_non_gene(gff_data, record_id, split_position):
 
 
 def split_fasta(records, gff_data, output_folder, length_threshold):
-    new_gff_file = f"{output_folder}/merged_records.gff"
     for record in records:
         if len(record.seq) < length_threshold:
             output_file = f"{output_folder}/{record.id}.fasta"
             SeqIO.write([record], output_file, "fasta")
             print(f"Record '{record.id}' (length: {len(record.seq)}) written to '{output_file}'.")
-            output_file_gff =f"{output_folder}/{record.id}.gff"
+            output_file_gff = f"{output_folder}/{record.id}.gff"
             with open(output_file_gff, 'a') as new_gff:
                 new_gff.write(('\t'.join(feature) for feature in gff_data if feature[0] == record.id) + "\n")
         else:
@@ -78,16 +73,16 @@ def parse_gff(gff_file):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    input_fasta = sys.argv[1]
-    gff_file = sys.argv[2]
-    length_threshold = int(sys.argv[3])
-    output_folder = "output"
+    parser = argparse.ArgumentParser(prog="FACoP preprocessor",
+                                     description="The FACoP webserver only provides annotations for genomes with a length smaller than 10 Mbp. This tool creates artificial contigs below a specified length threshold that can be used as input. It preferably splits the file into existing contigs but if a single contig is above the threshold it will be cut between genes.")
+    parser.add_argument("fasta", help="fasta file to split")
+    parser.add_argument("gff", help="gff file to split")
+    parser.add_argument("threshold", help="maximum length of resulting contigs")
+    parser.add_argument("-o", "--output",default="split_output", help="output folder")
+    args = parser.parse_args()
 
-    os.makedirs(output_folder, exist_ok=True)
+    os.makedirs(args.output, exist_ok=True)
 
-    # Read GFF file and pass information to split_fasta
-    gff_data = parse_gff(gff_file)
-    records = list(SeqIO.parse(input_fasta, "fasta"))
-    split_fasta(records, gff_data, output_folder, length_threshold)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    gff_data = parse_gff(args.gff)
+    records = list(SeqIO.parse(args.fasta, "fasta"))
+    split_fasta(records, gff_data, args.output, int(args.threshold))
