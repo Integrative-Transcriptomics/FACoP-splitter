@@ -3,7 +3,7 @@ import sys
 import argparse
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog="FACoP annotation to GO-Compass annotation",
+    parser = argparse.ArgumentParser(prog="python facop_to_gocompass.py",
                                      description="Transforms FACoP GO annotation to the annotation format used by GO-Compass")
     parser.add_argument("input", help=".tsv or .txt containing GO annotation created by FACoP")
     parser.add_argument("output", help="Name of output file")

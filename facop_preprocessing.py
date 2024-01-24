@@ -73,7 +73,7 @@ def parse_gff(gff_file):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog="FACoP preprocessor",
+    parser = argparse.ArgumentParser(prog="python facop_preprocessing.py",
                                      description="The FACoP webserver only provides annotations for genomes with a length smaller than 10 Mbp. This tool creates artificial contigs below a specified length threshold that can be used as input. It preferably splits the file into existing contigs but if a single contig is above the threshold it will be cut between genes.")
     parser.add_argument("fasta", help="fasta file to split")
     parser.add_argument("gff", help="gff file to split")

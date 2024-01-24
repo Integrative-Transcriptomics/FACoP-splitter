@@ -26,7 +26,7 @@ def read_file(tsv_file_path, output_file_path):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog="FUNAGE-Pro postprocessor",
+    parser = argparse.ArgumentParser(prog="python funage_postprocessing",
                                      description="Enhances the output table of FUNAGE-Pro and saves it to .xlsx files. Please make sure to export all columns in FUNAGE-Pro")
     parser.add_argument("input", help="folder containing FUNAGE-Pro files")
     parser.add_argument("-o", "--output", default="pretty_output", help="output folder")
