@@ -1,8 +1,8 @@
-## Scripts for processing FACoP/FUNAGE-Pro output
+## Scripts for processing FACoP/FUNAGE-Pro input/output
 
 These scripts are used for creating the input for the bacterial annotation tool FACoP (http://facop.molgenrug.nl/) and the Gene Set Enrichment tool FUNAGE-Pro (http://funagepro.molgenrug.nl/).
 
-#### Preprocessing files for annotation with FACoP
+### Preprocessing files for annotation with FACoP
 
 **Important**: Most bacterial genome can be annotated as-is with FACoP as long as the *.gff* and *.fasta* are given and the genome size is below 10 Mbp.
 
@@ -24,7 +24,7 @@ options:
                         output folder
 ```
 
-#### Post-processing files after enrichment with FUNAGE-Pro
+### Post-processing files after enrichment with FUNAGE-Pro
 Transforms the columns of the FUNAGE-Pro output and saves the result as an *.xlsx* file
 ```
 usage: FUNAGE-Pro postprocessor [-h] [-o OUTPUT] input
@@ -39,7 +39,7 @@ options:
   -o OUTPUT, --output OUTPUT
                         output folder
 ```
-#### Transforming FACoP annotation for usage in GO-Compass
+### Transforming FACoP annotation for usage in GO-Compass
 Go-Compass (https://go-compass-tuevis.cs.uni-tuebingen.de/) requires a transformation of the GO Annotation that can be done with this script.
 ```
 usage: FACoP annotation to GO-Compass annotation [-h] input output
